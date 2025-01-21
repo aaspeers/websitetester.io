@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highcharts with Dropdown</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+</head>
+<body>
+    <div>
+        <label for="materialDropdown">Select Material:</label>
+        <select id="materialDropdown">
+            <option value="material1">Material 1</option>
+            <option value="material2">Material 2</option>
+            <option value="material3">Material 3</option>
+        </select>
+    </div>
+    <div id="container" style="width: 100%; height: 400px;"></div>
+
+    <script>
+        // Data for materials with two series each
+        const materialData = {
+            material1: [
+                { name: 'Property A', data: [10, 20, 30, 40, 50] },
+                { name: 'Property B', data: [5, 15, 25, 35, 45] }
+            ],
+            material2: [
+                { name: 'Property A', data: [15, 25, 35, 45, 55] },
+                { name: 'Property B', data: [10, 20, 30, 40, 50] }
+            ],
+            material3: [
+                { name: 'Property A', data: [20, 30, 40, 50, 60] },
+                { name: 'Property B', data: [15, 25, 35, 45, 55] }
+            ]
+        };
+
+        // Initialize the chart
+        let chart = Highcharts.chart('container', {
+            title: {
+                text: 'Material Properties'
+            },
+            xAxis: {
+                categories: ['Point 1', 'Point 2', 'Point 3', 'Point 4', 'Point 5']
+            },
+            yAxis: {
+                title: {
+                    text: 'Values'
+                }
+            },
+            series: materialData.material1 // Default material series
+        });
+
+        // Event listener for dropdown change
+        document.getElementById('materialDropdown').addEventListener('change', function () {
+            const selectedMaterial = this.value;
+
+            // Update the chart series
+            chart.update({
+                series: materialData[selectedMaterial]
+            });
+        });
+    </script>
+</body>
+</html>
