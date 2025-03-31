@@ -1,229 +1,61 @@
-<html>
-<style>
-    @import "https://code.highcharts.com/dashboards/css/dashboards.css";
-    @import url("https://code.highcharts.com/dashboards/css/datagrid.css");
-</style>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Test Dash</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update HTML with Spreadsheet Data</title>
 </head>
-
-
-
-
-
-
-
 <body>
-    <div id="select_media" class="container" style="display: flex; align-items: center">
-        <div class="Library noprint">
-            <form action="." autocomplete="off">
-                <p>
-                    <b>Select your material below:</b><br>
-                    <select id="seriesDropdown" class="LongSelect">
-                        <optgroup label="Choose One">
-                        </optgroup>
-                    </select>
-                </p>
-            </form>
-        </div>
-
-    </div>
-
-
-    <div id="container" style="width:1200px;height:300px;">
-
-
-    </div>
-    <div id="container" style="width:420px;height:300px;" class="highcharts"></div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script>
-        if (!window.jQuery) {
-            document.write('<script src="js/jquery-1.8.3.min.js"><\/script>');
-        }
-    </script>
-
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-
+    <p>hello world</p>
+    <table id="publications-table">
+        <!-- Updated publication rows will be inserted here -->
+    </table>
 
     <script>
-        const seriesData = [
-            {
-                name: 'n-SbS',
-                data: [[300, 2.452274], [310, 2.506854], [320, 2.541909], [330, 2.564407], [340, 2.588169], [350, 2.614701], [360, 2.641005], [370, 2.664109], [380, 2.683666], [390, 2.700149], [400, 2.714354], [410, 2.726745], [420, 2.737565], [430, 2.746984], [440, 2.755128], [450, 2.762118], [460, 2.768067], [470, 2.773085], [480, 2.777271], [490, 2.78073], [500, 2.783538], [510, 2.785745], [520, 2.787385], [530, 2.788476], [540, 2.789029], [550, 2.789029], [560, 2.788444], [570, 2.787295], [580, 2.785625], [590, 2.783489], [600, 2.780942], [610, 2.778044], [620, 2.774857], [630,
-                    2.771446], [640, 2.767894], [650, 2.764269], [660, 2.760604], [670, 2.756917], [680, 2.753218], [690, 2.749511], [700, 2.745794], [710, 2.742063], [720, 2.73831], [730, 2.734524], [740, 2.73069], [750, 2.726785], [760, 2.722775], [770, 2.718635], [780, 2.714363], [790, 2.709962], [800, 2.705441], [810, 2.700811], [820, 2.696083], [830, 2.691272], [840, 2.686391], [850, 2.681455], [860, 2.676478], [870, 2.671477], [880, 2.666465], [890, 2.661458], [900, 2.656472], [910, 2.651524], [920, 2.646632], [930, 2.641821], [940, 2.637112], [950, 2.632517], [960, 2.628043], [970, 2.623694], [980, 2.619474], [990, 2.615383], [1000, 2.611422], [1010, 2.607589], [1020, 2.603885], [1030, 2.600306], [1040, 2.59685], [1050, 2.593515], [1060, 2.590298], [1070, 2.587195], [1080, 2.584204], [1090, 2.581321], [1100, 2.578542], [1110, 2.575865], [1120, 2.573285], [1130, 2.570799], [1140, 2.568403], [1150, 2.566093], [1160, 2.563867], [1170, 2.56172], [1180, 2.559649], [1190, 2.557651], [1200, 2.55572], [1210, 2.553854], [1220, 2.552047], [1230, 2.550298], [1240, 2.548604], [1250, 2.546963], [1260, 2.545371], [1270, 2.543828], [1280, 2.542331], [1290, 2.540878], [1300, 2.539468], [1310, 2.538099], [1320, 2.536768], [1330, 2.535477], [1340, 2.534221], [1460, 2.521578], [1470, 2.520695], [1480, 2.519836], [1490, 2.518998], [1500, 2.518181], [1510, 2.517384], [1520, 2.516607], [1530, 2.515849], [1540, 2.515109], [1550, 2.514387], [1560, 2.513683], [1570, 2.512995], [1580, 2.512324], [1590, 2.511668], [1600, 2.511027], [1610, 2.510401], [1620, 2.50979], [1630, 2.509192], [1640, 2.508608], [1650, 2.508037], [1660, 2.507478], [1670, 2.506931], [1680, 2.506397], [1690, 2.505874], [1700, 2.505362]]
-            },
-            {
-                name: 'k-SbS',
-                data: [[300, 0.938254], [310, 0.936136], [320, 0.910411], [330, 0.887178], [340, 0.867843], [350, 0.846586], [360, 0.820917], [370, 0.792321], [380, 0.762795], [390, 0.733572], [400, 0.705152], [410, 0.677531], [420, 0.650698], [430, 0.624648], [440, 0.599384], [450, 0.574918], [460, 0.551254], [470, 0.528385], [480, 0.506296], [490, 0.48496], [500, 0.46432], [510, 0.444321], [520, 0.424921], [530, 0.406079], [540, 0.387763], [550, 0.369946], [560, 0.352656], [570, 0.335947], [580, 0.319854], [590, 0.304403], [600, 0.289609], [610, 0.275477], [620, 0.26201], [630, 0.249204], [640, 0.237038], [650, 0.225453], [660, 0.214386], [670, 0.203783], [680, 0.193597], [690, 0.183787], [700, 0.174316], [710, 0.165152], [720, 0.156266], [730, 0.147632], [740, 0.139229], [750, 0.131035], [760, 0.123048], [770, 0.115287], [780, 0.107775], [790, 0.100528], [800, 0.093558], [810, 0.086876], [820, 0.080488], [830, 0.074401], [840, 0.068618], [850, 0.063141], [860, 0.057971], [870, 0.053107], [880, 0.048549], [890, 0.044293], [900, 0.040337], [910, 0.036677], [920, 0.033309], [930, 0.030226], [940, 0.027407], [950, 0.02483], [960, 0.022475], [970, 0.020324], [980, 0.018361], [990, 0.016569], [1000, 0.014936], [1010, 0.013446], [1020, 0.012089], [1030, 0.010853], [1040, 0.009728], [1050, 0.008703], [1060, 0.007771], [1070, 0.006922], [1080, 0.00615], [1090, 0.005447], [1100, 0.004807], [1110, 0.004224], [1120, 0.003692], [1130, 0.003206], [1140, 0.002761], [1150, 0.002354], [1160, 0.001979], [1170, 0.001634], [1180, 0.001314], [1190, 0.001018], [1200, 0.00074], [1210, 0.000481], [1220, 0.000239], [1230, 1.2e-05], [1240, -0.000199], [1250, -0.000397], [1260, -0.000582], [1270, -0.000755], [1280, -0.000917], [1290, -0.001068], [1300, -0.001208], [1310, -0.00134], [1320, -0.001463], [1330, -0.001578], [1340, -0.001685], [1460, -0.002533], [1470, -0.002577], [1480, -0.002619], [1490, -0.002659], [1500, -0.002696], [1510, -0.002731], [1520, -0.002764], [1530, -0.002796], [1540, -0.002826], [1550, -0.002854], [1560, -0.002881], [1570, -0.002907], [1580, -0.002932], [1590, -0.002956], [1600, -0.002979], [1610, -0.003001], [1620, -0.003023], [1630, -0.003044], [1640, -0.003064], [1650, -0.003085], [1660, -0.003105], [1670, -0.003124], [1680, -0.003144], [1690,
-                    -0.003163], [1700, -0.003183]]
-            }
-        ]
+        const spreadsheetId = '2PACX-1vQv8EIl5yPvzlrZzgzx5Y3xIJSlmaDBP44ldzGZ76UPS46kPphtNIfdZsyOBF1OkDTFSLn2jJdwTzlk';
+        const apiKey = 'AIzaSyC2DoCbHup7gqIkogj8Klhvz2G6YPLSOXo';
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1?key=${apiKey}`;
 
+        // Fetch data from Google Sheets
+        fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);  // Log the response data
+        const rows = data.values;
+        const table = document.getElementById('publications-table');
+        rows.slice(1).forEach(row => {  // Skip the first row if it contains headers
+            const [
+                hrefLink,
+                imageAddress,
+                pubIndex,
+                pubTitle,
+                pubAuthors,
+                pubJournal,
+                pubCitation
+            ] = row;
 
-        // Populate dropdown
+            const tr = document.createElement('tr');
+            tr.classList.add('publication-row');
 
-        let chart; // Declare chart in the outer scope so it can be accessed globally\
+            tr.innerHTML = `
+                <td class="pub-image">
+                    <a target="_blank" href="${hrefLink}">
+                        <img src="${imageAddress}" alt="Publication figure ${pubIndex}">
+                    </a>
+                </td>
+                <td class="pub-details">
+                    <div class="pub-title"><span class="pub-index">${pubIndex}.</span> ${pubTitle}</div>
+                    <div class="pub-authors">${pubAuthors}</div>
+                    <div class="pub-journal">${pubJournal}</div>
+                    <div class="pub-citation">${pubCitation}</div>
+                </td>
+            `;
 
-        $(function () {
-            var chart;
-            $(document).ready(function () {
-                // $.getJSON("data.php", function(json) {
-
-                chart = new Highcharts.Chart({
-                    chart: {
-                        backgroundColor: '#000000',
-                        renderTo: 'container',
-                        type: 'line',
-                        marginRight: 130,
-                        marginBottom: 60,
-                        height: 300,
-                        width: 420,
-                        color: '#123241',
-                        //styledMode: true,
-                    },
-                    title: {
-                        text: 'Plot of n & k Values of SbS vs. Wavelength (nm) ',
-                        style: {
-                            color: '#b0abab',
-                        }
-
-                    },
-                    subtitle: {
-                        text: '',
-                        x: -20,
-                        style: {
-                            color: '#b0abab',
-                        }
-                    },
-                    xAxis: {
-                        lineColor: '#E6E6E6',
-                        lineWidth: 1,
-                        tickColor: '#E6E6E6',
-                        rangeDescription: 'Range: 300 to 1700',
-                        showLastLabel: true,
-                        title: {
-                            enabled: true,
-                            text: 'Wavelength (nm)',
-                            style: {
-                                color: '#b0abab',
-                            }
-
-                        },
-                        labels: {
-                            format: '{value}'
-                            , style: {
-                                color: '#b0abab',
-                            }
-                        },
-
-
-
-
-                    },
-                    exporting: {
-                        buttons: {
-                            contextButton: {
-                                buttonSpacing: 10,
-                                symbolStrokeWidth: 2,
-                                symbolStroke: '#b0abab',
-                                backgroundColor: '#000000',
-                                theme: {
-                                    fill: '#393939'
-                                }
-                            }
-                        }
-                    },
-                    yAxis: {
-                        rangeDescription: 'Range: 0 to 5',
-                        showLastLabel: true,
-                        title: {
-                            enabled: true,
-                            text: 'n , k value'
-                            , style: {
-                                color: '#b0abab',
-                            }
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#b0abab'
-
-                        }],
-                        labels: {
-                            format: '{value}'
-                            , style: {
-                                color: '#b0abab',
-                            }
-                        },
-                    },
-
-                    credits: {
-                        enabled: false
-                    },
-
-                    tooltip: {
-                        formatter: function () {
-                            return '<b>' + this.series.name + '</b><br/>' +
-                                this.x + ': ' + this.y;
-                        }
-
-                    },
-                    navigation: {
-
-                        menuStyle: {
-                            background: '#E0E0E0',
-                        }
-                    },
-                    legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        x: -10,
-                        y: 100,
-                        itemStyle: {
-                            color: '#FFFFFF',
-                            fontWeight: 'bold'
-                        }
-                    },
-
-                    series: [seriesData[0]] // data is stuck to this value for some reason
-
-
-
-
-                });
-                const dropdown = document.getElementById('seriesDropdown');
-                seriesData.forEach((series, index) => {
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.textContent = series.name;
-                    dropdown.appendChild(option);
-                });
-                // Update chart on dropdown change
-                dropdown.addEventListener('change', function () {
-                    const selectedIndex = parseInt(this.value);
-
-                    // Clear all series in the chart
-                    while (chart.series.length > 0) {
-                        chart.series[0].remove(false); // Use `false` to prevent redraw after each removal
-                    }
-
-                    // Add the selected series
-                    chart.addSeries(seriesData[selectedIndex], true); // Use `true` to trigger redraw after adding the series
-                });
-                //  });
-
-            });
-
+            // Append the new row to the table
+            table.appendChild(tr);
         });
+    })
+    .catch(error => console.error('Error fetching data from Google Sheets:', error));
 
     </script>
 </body>
