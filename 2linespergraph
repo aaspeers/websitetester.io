@@ -3,63 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Highcharts with Dropdown</title>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <title>Update HTML with Spreadsheet Data</title>
 </head>
 <body>
-    <div>
-        <label for="materialDropdown">Select Material:</label>
-        <select id="materialDropdown">
-            <option value="material1">Material 1</option>
-            <option value="material2">Material 2</option>
-            <option value="material3">Material 3</option>
-        </select>
-    </div>
-    <div id="container" style="width: 100%; height: 400px;"></div>
+    <p>hello world</p>
+    <table id="publications-table">
+        <!-- Updated publication rows will be inserted here -->
+    </table>
 
     <script>
-        // Data for materials with two series each
-        const materialData = {
-            material1: [
-                { name: 'Property A', data: [10, 20, 30, 40, 50] },
-                { name: 'Property B', data: [5, 15, 25, 35, 45] }
-            ],
-            material2: [
-                { name: 'Property A', data: [15, 25, 35, 45, 55] },
-                { name: 'Property B', data: [10, 20, 30, 40, 50] }
-            ],
-            material3: [
-                { name: 'Property A', data: [20, 30, 40, 50, 60] },
-                { name: 'Property B', data: [15, 25, 35, 45, 55] }
-            ]
-        };
+        const spreadsheetId = '2PACX-1vQv8EIl5yPvzlrZzgzx5Y3xIJSlmaDBP44ldzGZ76UPS46kPphtNIfdZsyOBF1OkDTFSLn2jJdwTzlk';
+        const apiKey = 'AIzaSyC2DoCbHup7gqIkogj8Klhvz2G6YPLSOXo';
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1?key=${apiKey}`;
 
-        // Initialize the chart
-        let chart = Highcharts.chart('container', {
-            title: {
-                text: 'Material Properties'
-            },
-            xAxis: {
-                categories: ['Point 1', 'Point 2', 'Point 3', 'Point 4', 'Point 5']
-            },
-            yAxis: {
-                title: {
-                    text: 'Values'
-                }
-            },
-            series: materialData.material1 // Default material series
+        // Fetch data from Google Sheets
+        fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);  // Log the response data
+        const rows = data.values;
+        const table = document.getElementById('publications-table');
+        rows.slice(1).forEach(row => {  // Skip the first row if it contains headers
+            const [
+                hrefLink,
+                imageAddress,
+                pubIndex,
+                pubTitle,
+                pubAuthors,
+                pubJournal,
+                pubCitation
+            ] = row;
+
+            const tr = document.createElement('tr');
+            tr.classList.add('publication-row');
+
+            tr.innerHTML = `
+                <td class="pub-image">
+                    <a target="_blank" href="${hrefLink}">
+                        <img src="${imageAddress}" alt="Publication figure ${pubIndex}">
+                    </a>
+                </td>
+                <td class="pub-details">
+                    <div class="pub-title"><span class="pub-index">${pubIndex}.</span> ${pubTitle}</div>
+                    <div class="pub-authors">${pubAuthors}</div>
+                    <div class="pub-journal">${pubJournal}</div>
+                    <div class="pub-citation">${pubCitation}</div>
+                </td>
+            `;
+
+            // Append the new row to the table
+            table.appendChild(tr);
         });
+    })
+    .catch(error => console.error('Error fetching data from Google Sheets:', error));
 
-        // Event listener for dropdown change
-        document.getElementById('materialDropdown').addEventListener('change', function () {
-            const selectedMaterial = this.value;
-
-            // Update the chart series
-            chart.update({
-                series: materialData[selectedMaterial]
-            });
-        });
     </script>
 </body>
 </html>
